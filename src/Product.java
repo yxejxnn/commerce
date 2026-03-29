@@ -13,4 +13,18 @@ public class Product {
         this.productDescription = productDescription;
         this.productStock = productStock;
     }
+
+    // 기능
+    // 상품명 반환
+    public String getProductName() {
+        return productName;
+    }
+    // 상품 가격 반환
+    public int getProductPrice() {
+        return productPrice;
+    }
+    // 상품 설명 반환
+    public String getProductDescription() {
+        return productDescription;
+    }
 }
