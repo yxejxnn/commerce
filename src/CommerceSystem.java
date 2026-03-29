@@ -52,16 +52,16 @@ public class CommerceSystem {
                     // 입력한 카테고리 객체를 가져옴
                     Category selectedCategory = categoryList.get(categoryChoice - 1); // 리스트 인덱스는 0부터 시작하기 때문에 1을 빼줌
                     // 선택한 카테고리 출력
-                    System.out.println("[ " + selectedCategory.categoryName + " 카테고리 ]");
+                    System.out.println("[ " + selectedCategory.getCategoryName() + " 카테고리 ]");
 
                     // 향산된 for문으로 List 안에 상품 목록을 하나씩 꺼내서 출력
                     // 향산된 for문은 인덱스 번호가 없기 때문에 번호를 저장할 변수를 따로 만듦
                     int productNumber = 1;
 
                     // 선택한 카테고리에 들어있는 상품 목록 출력
-                    for (Product product : selectedCategory.productList) {
+                    for (Product product : selectedCategory.getProductList()) {
                         // String.foramt("%,c")를 사용해서 금액 출력 시 천단위 구분
-                        System.out.println(productNumber + ". " + product.productName + " | " + String.format("%,d", product.productPrice) + "원 | " + product.productDescription);
+                        System.out.println(productNumber + ". " + product.getProductName() + " | " + String.format("%,d", product.getProductPrice()) + "원 | " + product.getProductDescription());
                         productNumber++;
                     }
 
@@ -80,8 +80,8 @@ public class CommerceSystem {
                     // 상품 번호를 입력한 경우
                     if (productChoice >= 1 && productChoice <= selectedCategory.getProductList().size()) {
                         // 선택한 상품 객체를 가져옴
-                        Product selectedProduct = selectedCategory.productList.get(productChoice - 1);
-                        System.out.println(selectedProduct.productName + " | " + String.format("%,d", selectedProduct.productPrice) + "원 | " + selectedProduct.productDescription + " | 재고: " + selectedProduct.productStock + "개");
+                        Product selectedProduct = selectedCategory.getProductList().get(productChoice - 1);
+                        System.out.println(selectedProduct.getProductName() + " | " + String.format("%,d", selectedProduct.getProductPrice()) + "원 | " + selectedProduct.getProductDescription() + " | 재고: " + selectedProduct.getProductStock() + "개");
                         System.out.println(); // 줄바꿈
                         break;
                     }

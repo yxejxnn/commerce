@@ -1,10 +1,10 @@
 public class Product {
 
     // 속성
-    String productName; // 상품명
-    int productPrice; // 상품 가격
-    String productDescription; // 상품 설명
-    int productStock; // 상품 재고수량
+    private String productName; // 상품명
+    private int productPrice; // 상품 가격
+    private String productDescription; // 상품 설명
+    private int productStock; // 상품 재고수량
 
     // 생성자
     public Product(String productName, int productPrice, String productDescription, int productStock) {
@@ -26,5 +26,9 @@ public class Product {
     // 상품 설명 반환
     public String getProductDescription() {
         return productDescription;
+    }
+    // 상품 재고수량 반환
+    public int getProductStock() {
+        return productStock;
     }
 }
