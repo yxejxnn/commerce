@@ -33,5 +33,24 @@ public class Main {
             System.out.println(number + ". " + product.productName + " | " + String.format("%,d" , product.productPrice) + "원 | " + product.productDescription);
             number++;
         }
+
+        System.out.println("0. 종료 | 프로그램 종료"); // 종료 메뉴 출력
+        System.out.println(); // 줄바꿈
+        System.out.print("메뉴 입력: ");
+        int productChoice = scanner.nextInt(); // 상품 메뉴 선택
+
+        // 0 입력 시 종료
+        if (productChoice == 0) {
+            System.out.println("커머스 플랫폼을 종료합니다.");
+        }
+        else if (productChoice >= 1 && productChoice <= productList.size()) {
+            // 입력한 번호에 맞는 상품을 가져옴
+            Product selectedProduct = productList.get(productChoice - 1);
+            // 선택한 상품 정보 출력
+            System.out.println("선택한 상품: " + selectedProduct.productName + " | " + String.format("%,d" , selectedProduct.productPrice) + "원 | " + selectedProduct.productDescription);
+        }
+        else {
+            System.out.println("잘못된 입력입니다.");
+        }
     }
 }
