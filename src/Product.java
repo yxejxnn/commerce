@@ -31,4 +31,8 @@ public class Product {
     public int getProductStock() {
         return productStock;
     }
+    // 주문 확정 시 주문한 수량만큼 상품 재고를 차감하는 메서드
+    public void reduceProductStock(int orderQuantity) {
+        productStock -= orderQuantity;
+    }
 }

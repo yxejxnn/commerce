@@ -103,11 +103,20 @@ public class CommerceSystem {
 
                         // 1 입력 시 추가
                         if (cartChoice == 1) {
-                            CartItem cartItem = new CartItem(selectedProduct, 1);
-                            cart.addCartItem(cartItem);
-                            System.out.println(selectedProduct.getProductName() + "가 장바구니에 추가되었습니다.");
-                            System.out.println(); // 줄바꿈
-                            break;
+                            // 재고 확인 (재고가 부족할 경우 경고 메시지 출력)
+                            if (selectedProduct.getProductStock() > 0) { // 상품 재고가 1개 이상이면
+                                CartItem cartItem = new CartItem(selectedProduct, 1);
+                                cart.addCartItem(cartItem);
+
+                                System.out.println(selectedProduct.getProductName() + "가 장바구니에 추가되었습니다.");
+                                System.out.println(); // 줄바꿈
+                                break;
+                            }
+                            else {
+                                // 상품 재고가 부족하면 경고 메시지 출력
+                                System.out.println("재고가 부족하여 장바구니에 추가할 수 없습니다.");
+                                System.out.println(); // 줄바꿈
+                            }
                         }
                         // 2 입력 시 취소
                         else if (cartChoice == 2) {
@@ -157,7 +166,26 @@ public class CommerceSystem {
                     System.out.println("주문이 완료되었습니다! ");
                     System.out.println("총 금액: " + String.format("%,d" , cart.calculateTotalPrice()) + "원");
                     System.out.println(); // 줄바꿈
+
+                    // 주문 확정 시 상품 재고 차감
+                    for (CartItem cartItem : cart.getCartItemList()) { // 장바구니 안에 담긴 항목들을 하나씩 꺼냄
+                        Product cartProduct = cartItem.getCartProduct(); // 그 항목에 들어있는 실제 상품 객체를 꺼냄
+                        int orderQuantity = cartItem.getCartQuantity(); // 장바구니에 몇 개 담았는지 꺼냄
+
+                        int beforeStock = cartProduct.getProductStock(); // 재고 차감 전 수량 저장
+
+                        cartProduct.reduceProductStock(orderQuantity); // 주문한 수량만큼 재고를 줄임
+
+                        int afterStock = cartProduct.getProductStock(); // 재고 차감 후 수량 저장
+
+                        // 재고 업데이트 문구 출력
+                        System.out.println(cartProduct.getProductName() + " 재고가 " + beforeStock + "개 → " + afterStock + "개로 업데이트되었습니다.");
+                    }
+
+                    System.out.println(); // 줄바꿈
                     cart.clearCart(); // 주문이 끝났으므로 장바구니 비우기
+
+
                 }
                 // 2 입력 시 메인으로 돌아가기
                 else if (orderChoice == 2) {
