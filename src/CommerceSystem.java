@@ -101,8 +101,11 @@ public class CommerceSystem {
                 cart.addProductToCart(selectedProduct);
                 System.out.println(selectedProduct.getProductName() + "가 장바구니에 추가되었습니다.");
                 System.out.println();
-            } else {
+            } else if (cartChoice == 2) {
                 System.out.println("장바구니 추가를 취소했습니다.");
+                System.out.println();
+            } else {
+                System.out.println("잘못된 번호 입니다.");
                 System.out.println();
             }
         } else {
@@ -130,6 +133,10 @@ public class CommerceSystem {
 
         if (orderChoice == 1) {
             completeOrder();
+        } else if (orderChoice == 2) {
+        } else {
+            System.out.println("잘못된 번호입니다.");
+            System.out.println();
         }
     }
     // 주문 확정 처리

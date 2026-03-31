@@ -33,7 +33,7 @@ public class Product {
     }
     // 재고 1개 차감
     public void decreaseStock() {
-        if (!hasStock()) {
+        if (hasStock()) {
             productStock--;
         }
     }
