@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Data {
 
-    public static List<Category> createCategoryList() {
+    public List<Category> createCategoryList() {
         List<Category> categoryList = new ArrayList<>();
 
         List<Product> electronicsProductList = new ArrayList<>();
