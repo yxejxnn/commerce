@@ -206,8 +206,7 @@ public class CommerceSystem {
         } else if (adminChoice == 2) {
             admin.editAdminProduct();
         } else if (adminChoice == 3) {
-            System.out.println("어느 카테고리에 상품을 삭제하시겠습니까?");
-            System.out.println();
+            admin.deleteAdminProduct();
         } else if (adminChoice == 4) {
             System.out.println("[ 전체 상품 현황 ]");
             System.out.println();

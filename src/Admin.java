@@ -107,99 +107,177 @@ public class Admin {
     }
     // 관리자 상품 수정 기능
     public void editAdminProduct() {
-        System.out.print("수정할 상품명을 입력해주세요: ");
-        String targetProductName = scanner.nextLine();
-        System.out.println();
+        try {
+            System.out.print("수정할 상품명을 입력해주세요: ");
+            String targetProductName = scanner.nextLine();
+            System.out.println();
 
-        Product selectedProduct = null;
+            Product selectedProduct = null;
 
-        for (Category category : categoryList) {
-            for (Product product : category.getCategoryProductList()) {
-                if (product.getProductName().equals(targetProductName)) {
-                    selectedProduct = product;
+            for (Category category : categoryList) {
+                for (Product product : category.getCategoryProductList()) {
+                    if (product.getProductName().equals(targetProductName)) {
+                        selectedProduct = product;
+                        break;
+                    }
+                }
+                if (selectedProduct != null) {
                     break;
                 }
             }
-            if (selectedProduct != null) {
-                break;
+            if (selectedProduct == null) {
+                System.out.println("해당 상품을 찾을 수 없습니다.");
+                System.out.println();
+                return;
             }
-        }
-        if (selectedProduct == null) {
-            System.out.println("해당 상품을 찾을 수 없습니다.");
+
+            System.out.println("현재 상품 정보: " + selectedProduct.getProductDetailInfo());
             System.out.println();
-            return;
-        }
 
-        System.out.println("현재 상품 정보: " + selectedProduct.getProductDetailInfo());
-        System.out.println();
-
-        System.out.println("수정할 항목을 선택해주세요.");
-        System.out.println("1. 가격");
-        System.out.println("2. 설명");
-        System.out.println("3. 재고수량");
-        System.out.print("메뉴 입력: ");
-        int editChoice = scanner.nextInt();
-        System.out.println();
-
-        if (editChoice == 1) {
-            editProductPrice(selectedProduct);
-        } else if (editChoice == 2) {
-            editProductDescription(selectedProduct);
-        } else if (editChoice == 3) {
-            editProductStock(selectedProduct);
-        } else {
-            System.out.println("잘못된 번호입니다.");
+            System.out.println("수정할 항목을 선택해주세요.");
+            System.out.println("1. 가격");
+            System.out.println("2. 설명");
+            System.out.println("3. 재고수량");
+            System.out.print("메뉴 입력: ");
+            int editChoice = scanner.nextInt();
+            scanner.nextLine();
             System.out.println();
+
+            if (editChoice == 1) {
+                editProductPrice(selectedProduct);
+            } else if (editChoice == 2) {
+                editProductDescription(selectedProduct);
+            } else if (editChoice == 3) {
+                editProductStock(selectedProduct);
+            } else {
+                System.out.println("잘못된 번호입니다.");
+                System.out.println();
+            }
+        } catch (Exception e) {
+            System.out.println("잘못된 입력입니다.");
+            System.out.println();
+            scanner.nextLine();
         }
     }
     // 상품 가격 수정 기능
     public void editProductPrice(Product selectedProduct) {
-        int beforePrice = selectedProduct.getProductPrice();
+        try {
+            int beforePrice = selectedProduct.getProductPrice();
 
-        System.out.println("현재 가격: " + String.format("%,d" , beforePrice) + "원");
-        System.out.print("새로운 가격을 입력해주세요: ");
-        int afterPrice = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println();
+            System.out.println("현재 가격: " + String.format("%,d", beforePrice) + "원");
+            System.out.print("새로운 가격을 입력해주세요: ");
+            int afterPrice = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println();
 
-        selectedProduct.setProductPrice(afterPrice);
+            selectedProduct.setProductPrice(afterPrice);
 
-        System.out.println(selectedProduct.getProductName() + "의 가격이 "
-                + String.format("%,d" , beforePrice) + "원 → "
-                + String.format("%,d" , afterPrice) + "원으로 수정되었습니다.");
-        System.out.println();
+            System.out.println(selectedProduct.getProductName() + "의 가격이 "
+                    + String.format("%,d", beforePrice) + "원 → "
+                    + String.format("%,d", afterPrice) + "원으로 수정되었습니다.");
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("잘못된 입력입니다.");
+            System.out.println();
+        }
     }
     // 상품 설명 수정 기능
     public void editProductDescription(Product selectedProduct) {
-        String beforeDescription = selectedProduct.getProductDescription();
+        try {
+            String beforeDescription = selectedProduct.getProductDescription();
 
-        System.out.println("현재 설명: " + beforeDescription);
-        System.out.println("새로운 설명을 입력해주세요: ");
-        String afterDescription = scanner.nextLine();
-        System.out.println();
+            System.out.println("현재 설명: " + beforeDescription);
+            System.out.print("새로운 설명을 입력해주세요: ");
+            String afterDescription = scanner.nextLine();
+            System.out.println();
 
-        selectedProduct.setProductDescription(afterDescription);
+            selectedProduct.setProductDescription(afterDescription);
 
-        System.out.println(selectedProduct.getProductName() + "의 설명이 "
-                +  beforeDescription + " → "
-                + afterDescription + "로 수정되었습니다.");
-        System.out.println();
+            System.out.println(selectedProduct.getProductName() + "의 설명이 "
+                    + beforeDescription + " → "
+                    + afterDescription + "로 수정되었습니다.");
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("잘못된 입력입니다.");
+            System.out.println();
+            scanner.nextLine();
+        }
     }
     // 상품 재고 수정 기능
     public void editProductStock(Product selectedProduct) {
-        int beforeStock = selectedProduct.getProductStock();
+        try {
+            int beforeStock = selectedProduct.getProductStock();
 
-        System.out.println("현재 재고 수량: " + beforeStock);
-        System.out.println("새로운 재고 수량을 입력해주세요: ");
-        int afterStock = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println();
+            System.out.println("현재 재고 수량: " + beforeStock);
+            System.out.print("새로운 재고 수량을 입력해주세요: ");
+            int afterStock = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println();
 
-        selectedProduct.setProductStock(afterStock);
+            selectedProduct.setProductStock(afterStock);
 
-        System.out.println(selectedProduct.getProductName() + "의 재고가 "
-                +  beforeStock + "개 → "
-                + afterStock + "개로 수정되었습니다.");
-        System.out.println();
+            System.out.println(selectedProduct.getProductName() + "의 재고가 "
+                    + beforeStock + "개 → "
+                    + afterStock + "개로 수정되었습니다.");
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("잘못된 입력입니다.");
+            System.out.println();
+            scanner.nextLine();
+        }
+    }
+    // 관리자 상품 삭제 기능
+    public void deleteAdminProduct() {
+        try {
+            System.out.print("삭제할 상품명을 입력해주세요: ");
+            String targetProductName = scanner.nextLine();
+            System.out.println();
+
+            Category selectedCategory = null;
+            Product selectedProduct = null;
+
+            for (Category category : categoryList) {
+                for (Product product : category.getCategoryProductList()) {
+                    if (product.equals(targetProductName)) {
+                        selectedCategory = category;
+                        selectedProduct = product;
+                        break;
+                    }
+                }
+                if (selectedProduct != null) {
+                    break;
+                }
+            }
+            if (selectedProduct == null) {
+                System.out.println("해당 상품을 찾을 수 없습니다.");
+                System.out.println();
+                return;
+            }
+
+            System.out.println("현재 상품 정보: " + selectedProduct.getProductDetailInfo());
+            System.out.println();
+            System.out.println("위 상품을 삭제하시겠습니까?");
+            System.out.println("1. 삭제   2. 취소");
+            System.out.print("메뉴 입력: ");
+            int deleteChoice = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println();
+
+            if (deleteChoice == 1) {
+                selectedCategory.getCategoryProductList().remove(selectedProduct);
+                System.out.println("상품이 성공적으로 삭제되었습니다!");
+                System.out.println();
+            } else if (deleteChoice == 2) {
+                System.out.println("상품 삭제를 취소했습니다.");
+                System.out.println();
+            } else {
+                System.out.println("잘못된 번호입니다.");
+                System.out.println();
+            }
+        } catch (Exception e) {
+            System.out.println("잘못된 입력입니다.");
+            System.out.println();
+            scanner.nextLine();
+        }
     }
 }
