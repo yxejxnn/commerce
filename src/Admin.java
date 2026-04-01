@@ -6,15 +6,17 @@ public class Admin {
     // 속성
     private String adminPassword = "admin123"; // 관리자 비밀번호
     private List<Category> categoryList; // 전체 카테고리 목록
+    private Scanner scanner;
 
     // 생성자
-    public Admin(List<Category> categoryList) {
+    public Admin(List<Category> categoryList, Scanner scanner) {
         this.categoryList = categoryList;
+        this.scanner = scanner;
     }
 
     // 기능
     // 관리자 인증
-    public boolean checkAdminPassword(Scanner scanner) {
+    public boolean checkAdminPassword() {
         int passwordFailCount = 0;
 
         while (passwordFailCount < 3) {
@@ -37,7 +39,7 @@ public class Admin {
         return false;
     }
     // 관리자 상품 추가 기능
-    public void adminAddProduct(Scanner scanner) {
+    public void addAdminProduct() {
         System.out.println("어느 카테고리에 상품을 추가하시겠습니까?");
         System.out.println();
 
@@ -51,6 +53,7 @@ public class Admin {
             // 추가할 상품의 카테고리 입력
             System.out.print("메뉴 입력: ");
             int categoryChoice = scanner.nextInt();
+            scanner.nextLine();
             System.out.println();
 
             if (categoryChoice < 1 || categoryChoice > categoryList.size()) {
@@ -63,14 +66,19 @@ public class Admin {
             // 추가할 상품의 정보를 입력
             System.out.print("상품명을 입력해주세요: ");
             String productName = scanner.nextLine();
+
             System.out.print("가격을 입력해주세요: ");
             int productPrice = scanner.nextInt();
             scanner.nextLine();
+
             System.out.print("상품 설명을 입력해주세요: ");
             String productDescription = scanner.nextLine();
+
             System.out.print("재고 수량을 입력해주세요: ");
             int productStock = scanner.nextInt();
             scanner.nextLine();
+            System.out.println();
+
             // 입력한 상품 추가
             Product newProduct = new Product(productName, productPrice, productDescription, productStock);
             // 입력한 상품을 추가할 것인지 묻고 입력받기
@@ -96,5 +104,102 @@ public class Admin {
             System.out.println();
             scanner.nextLine();
         }
+    }
+    // 관리자 상품 수정 기능
+    public void editAdminProduct() {
+        System.out.print("수정할 상품명을 입력해주세요: ");
+        String targetProductName = scanner.nextLine();
+        System.out.println();
+
+        Product selectedProduct = null;
+
+        for (Category category : categoryList) {
+            for (Product product : category.getCategoryProductList()) {
+                if (product.getProductName().equals(targetProductName)) {
+                    selectedProduct = product;
+                    break;
+                }
+            }
+            if (selectedProduct != null) {
+                break;
+            }
+        }
+        if (selectedProduct == null) {
+            System.out.println("해당 상품을 찾을 수 없습니다.");
+            System.out.println();
+            return;
+        }
+
+        System.out.println("현재 상품 정보: " + selectedProduct.getProductDetailInfo());
+        System.out.println();
+
+        System.out.println("수정할 항목을 선택해주세요.");
+        System.out.println("1. 가격");
+        System.out.println("2. 설명");
+        System.out.println("3. 재고수량");
+        System.out.print("메뉴 입력: ");
+        int editChoice = scanner.nextInt();
+        System.out.println();
+
+        if (editChoice == 1) {
+            editProductPrice(selectedProduct);
+        } else if (editChoice == 2) {
+            editProductDescription(selectedProduct);
+        } else if (editChoice == 3) {
+            editProductStock(selectedProduct);
+        } else {
+            System.out.println("잘못된 번호입니다.");
+            System.out.println();
+        }
+    }
+    // 상품 가격 수정 기능
+    public void editProductPrice(Product selectedProduct) {
+        int beforePrice = selectedProduct.getProductPrice();
+
+        System.out.println("현재 가격: " + String.format("%,d" , beforePrice) + "원");
+        System.out.print("새로운 가격을 입력해주세요: ");
+        int afterPrice = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println();
+
+        selectedProduct.setProductPrice(afterPrice);
+
+        System.out.println(selectedProduct.getProductName() + "의 가격이 "
+                + String.format("%,d" , beforePrice) + "원 → "
+                + String.format("%,d" , afterPrice) + "원으로 수정되었습니다.");
+        System.out.println();
+    }
+    // 상품 설명 수정 기능
+    public void editProductDescription(Product selectedProduct) {
+        String beforeDescription = selectedProduct.getProductDescription();
+
+        System.out.println("현재 설명: " + beforeDescription);
+        System.out.println("새로운 설명을 입력해주세요: ");
+        String afterDescription = scanner.nextLine();
+        System.out.println();
+
+        selectedProduct.setProductDescription(afterDescription);
+
+        System.out.println(selectedProduct.getProductName() + "의 설명이 "
+                +  beforeDescription + " → "
+                + afterDescription + "로 수정되었습니다.");
+        System.out.println();
+    }
+    // 상품 재고 수정 기능
+    public void editProductStock(Product selectedProduct) {
+        int beforeStock = selectedProduct.getProductStock();
+
+        System.out.println("현재 재고 수량: " + beforeStock);
+        System.out.println("새로운 재고 수량을 입력해주세요: ");
+        int afterStock = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println();
+
+        selectedProduct.setProductStock(afterStock);
+
+        System.out.println(selectedProduct.getProductName() + "의 재고가 "
+                +  beforeStock + "개 → "
+                + afterStock + "개로 수정되었습니다.");
+        System.out.println();
     }
 }

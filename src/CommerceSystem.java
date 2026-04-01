@@ -10,10 +10,10 @@ public class CommerceSystem {
     private Scanner scanner = new Scanner(System.in);
 
     // 생성자
-    public CommerceSystem(List<Category> categoryList, Cart cart, Admin admin) {
+    public CommerceSystem(List<Category> categoryList, Cart cart) {
         this.categoryList = categoryList;
         this.cart = cart;
-        this.admin = admin;
+        this.admin = new Admin(categoryList, scanner);
     }
 
     // 기능
@@ -61,7 +61,7 @@ public class CommerceSystem {
             scanner.close();
             System.exit(0);
         } else if (categoryChoice == 6) {
-            if (admin.checkAdminPassword(scanner)) {
+            if (admin.checkAdminPassword()) {
                 adminMenu();
             }
             return null;
@@ -198,13 +198,13 @@ public class CommerceSystem {
         // 관리자 메뉴 입력
         System.out.print("메뉴 입력: ");
         int adminChoice = scanner.nextInt();
+        scanner.nextLine();
         System.out.println();
         // 관리자 선택
         if (adminChoice == 1) {
-            admin.adminAddProduct(scanner);
+            admin.addAdminProduct();
         } else if (adminChoice == 2) {
-            System.out.println("어느 카테고리에 상품을 수정하시겠습니까?");
-            System.out.println();
+            admin.editAdminProduct();
         } else if (adminChoice == 3) {
             System.out.println("어느 카테고리에 상품을 삭제하시겠습니까?");
             System.out.println();

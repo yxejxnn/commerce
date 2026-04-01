@@ -19,13 +19,33 @@ public class Product {
     public String getProductName() {
         return productName;
     }
+    // 상품명 수정
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
     // 상품 가격 반환
     public int getProductPrice() {
         return productPrice;
     }
+    // 상품 가격 수정
+    public void setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
+    }
+    // 상품 설명 반환
+    public String getProductDescription() {
+        return productDescription;
+    }
+    // 상품 설명 수정
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
     // 상품 재고 반환
     public int getProductStock() {
         return productStock;
+    }
+    // 상품 재고 수정
+    public void setProductStock(int productStock) {
+        this.productStock = productStock;
     }
     // 재고 있는지 확인
     public boolean hasStock() {
