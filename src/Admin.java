@@ -59,16 +59,18 @@ public class Admin {
                 return;
             }
 
-            Category selectedCategory = categoryList.get(categoryIndex - 1);
+            Category selectedCategory = categoryList.get(categoryChoice - 1);
             // 추가할 상품의 정보를 입력
             System.out.print("상품명을 입력해주세요: ");
-            String productName = scanner.next();
+            String productName = scanner.nextLine();
             System.out.print("가격을 입력해주세요: ");
             int productPrice = scanner.nextInt();
+            scanner.nextLine();
             System.out.print("상품 설명을 입력해주세요: ");
-            String productDescription = scanner.next();
-            System.out.println("재고 수량을 입력해주세요: ");
+            String productDescription = scanner.nextLine();
+            System.out.print("재고 수량을 입력해주세요: ");
             int productStock = scanner.nextInt();
+            scanner.nextLine();
             // 입력한 상품 추가
             Product newProduct = new Product(productName, productPrice, productDescription, productStock);
             // 입력한 상품을 추가할 것인지 묻고 입력받기
@@ -92,6 +94,7 @@ public class Admin {
         } catch (Exception e) {
             System.out.println("잘못된 입력입니다.");
             System.out.println();
+            scanner.nextLine();
         }
     }
 }

@@ -201,8 +201,7 @@ public class CommerceSystem {
         System.out.println();
         // 관리자 선택
         if (adminChoice == 1) {
-            System.out.println("어느 카테고리에 상품을 추가하시겠습니까?");
-            System.out.println();
+            admin.adminAddProduct(scanner);
         } else if (adminChoice == 2) {
             System.out.println("어느 카테고리에 상품을 수정하시겠습니까?");
             System.out.println();
