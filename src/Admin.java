@@ -14,7 +14,7 @@ public class Admin {
 
     // 기능
     // 관리자 인증
-    public void checkAdminPassword(Scanner scanner) {
+    public boolean checkAdminPassword(Scanner scanner) {
         int passwordFailCount = 0;
 
         while (passwordFailCount < 3) {
@@ -25,7 +25,7 @@ public class Admin {
             if (inputPassword.equals(adminPassword)) {
                 System.out.println("관리자 인증이 완료되었습니다.");
                 System.out.println();
-                return;
+                return true;
             } else {
                 passwordFailCount++;
                 System.out.println("비밀번호가 올바르지 않습니다.");
@@ -34,5 +34,6 @@ public class Admin {
         }
         System.out.println("비밀번호를 3회 이상 틀렸습니다. 메인 메뉴로 돌아갑니다.");
         System.out.println();
+        return false;
     }
 }
